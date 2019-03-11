@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SudokuSolver.Editors.SudokuSolver
+namespace SudokuSolver.Editors.SudokuSolver.Views
 {
     /// <summary>
     /// Interaction logic for SudokuSubGridView.xaml

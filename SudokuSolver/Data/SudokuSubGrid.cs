@@ -13,20 +13,20 @@ namespace SudokuSolver.Data
         // Top
 
         public SudokuElement TopLeft { get; private set; } = new SudokuElement();
-        public int TopMiddle { get; set; }
-        public int TopRight { get; set; }
+        public SudokuElement TopMiddle { get; private set; } = new SudokuElement();
+        public SudokuElement TopRight { get; private set; } = new SudokuElement();
 
         // Middle
 
-        public int MiddleLeft { get; set; }
-        public int MiddleMiddle { get; set; }
-        public int MiddleRight { get; set; }
+        public SudokuElement MiddleLeft { get; private set; } = new SudokuElement();
+        public SudokuElement MiddleMiddle { get; private set; } = new SudokuElement();
+        public SudokuElement MiddleRight { get; private set; } = new SudokuElement();
 
         // Bottom
 
-        public int BottomLeft { get; set; }
-        public int BottomMiddle { get; set; }
-        public int BottomRight { get; set; }
+        public SudokuElement BottomLeft { get; private set; } = new SudokuElement();
+        public SudokuElement BottomMiddle { get; private set; } = new SudokuElement();
+        public SudokuElement BottomRight { get; private set; } = new SudokuElement();
 
         #endregion
     }

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver.Data
 {
-    class SudokuElement
+    public class SudokuElement
     {
+        #region Properties and Fields
+
+        public int Value { get; set; } = 0;
+
+        #endregion
     }
 }

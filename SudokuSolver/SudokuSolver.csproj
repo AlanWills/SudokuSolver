@@ -64,11 +64,16 @@
     <Compile Include="Data\Sudoku.cs" />
     <Compile Include="Data\SudokuElement.cs" />
     <Compile Include="Data\SudokuSubGrid.cs" />
-    <Compile Include="Editors\SudokuSolver\SudokuSolverView.xaml.cs">
+    <Compile Include="Editors\SudokuSolver\ViewModels\SudokuElementViewModel.cs" />
+    <Compile Include="Editors\SudokuSolver\ViewModels\SudokuSubGridViewModel.cs" />
+    <Compile Include="Editors\SudokuSolver\Views\SudokuElement.xaml.cs">
+      <DependentUpon>SudokuElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\SudokuSolver\Views\SudokuSolverView.xaml.cs">
       <DependentUpon>SudokuSolverView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\SudokuSolver\SudokuSolverViewModel.cs" />
-    <Compile Include="Editors\SudokuSolver\SudokuSubGridView.xaml.cs">
+    <Compile Include="Editors\SudokuSolver\ViewModels\SudokuSolverViewModel.cs" />
+    <Compile Include="Editors\SudokuSolver\Views\SudokuSubGridView.xaml.cs">
       <DependentUpon>SudokuSubGridView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,14 +92,22 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Editors\SudokuSolver\SudokuSolverView.xaml">
+    <Page Include="Editors\SudokuSolver\Views\SudokuElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Editors\SudokuSolver\SudokuSubGridView.xaml">
+    <Page Include="Editors\SudokuSolver\Views\SudokuSolverView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Editors\SudokuSolver\Views\SudokuSubGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Resource Include="ResourceDictionaries\EditorResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Include="ResourceDictionaries\Styles\SudokuGridStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

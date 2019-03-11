@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuSolver.Editors.SudokuSolver
+namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 {
     public class SudokuSolverViewModel : EditorViewModel
     {

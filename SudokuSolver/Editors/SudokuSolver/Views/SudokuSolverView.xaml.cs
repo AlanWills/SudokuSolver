@@ -2,6 +2,7 @@
 using CelesteEngineEditor.Editors;
 using DevZest.Windows.Docking;
 using SudokuSolver.Data;
+using SudokuSolver.Editors.SudokuSolver.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SudokuSolver.Editors.SudokuSolver
+namespace SudokuSolver.Editors.SudokuSolver.Views
 {
     /// <summary>
     /// Interaction logic for SudokuSolver.xaml
@@ -26,7 +27,7 @@ namespace SudokuSolver.Editors.SudokuSolver
     [CustomMenuItem("Solvers/Sudoku Solver")]
     public partial class SudokuSolverView : Editor
     {
-        public SudokuSolverView(object targetValue) :
+        public SudokuSolverView(object target) :
             base(new SudokuSolverViewModel(new Sudoku()))
         {
             InitializeComponent();
