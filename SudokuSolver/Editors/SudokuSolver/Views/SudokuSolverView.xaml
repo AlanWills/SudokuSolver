@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SudokuSolver.Editors.SudokuSolver"
              mc:Ignorable="d"
              xmlns:editors="clr-namespace:CelesteEngineEditor.Editors;assembly=CelesteEngineEditorLibrary"
              xmlns:sudoku_views="clr-namespace:SudokuSolver.Editors.SudokuSolver.Views"
@@ -20,18 +19,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Row 1-->
-        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="0"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="1"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="2"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="0" DataContext="{Binding TopLeft}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="1" DataContext="{Binding TopMiddle}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="2" DataContext="{Binding TopRight}"/>
 
         <!--Row 2-->
-        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="0"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="1"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="2"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="0" DataContext="{Binding MiddleLeft}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="1" DataContext="{Binding MiddleMiddle}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="2" DataContext="{Binding MiddleRight}"/>
 
         <!--Row 3-->
-        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="0"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="1"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="2"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="0" DataContext="{Binding BottomLeft}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="1" DataContext="{Binding BottomMiddle}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="2" DataContext="{Binding BottomRight}"/>
     </Grid>
 </editors:Editor>

@@ -5,5 +5,7 @@
     <Style x:Key="SudokuElementStyle" TargetType="{x:Type xctk:IntegerUpDown}" BasedOn="{StaticResource IntegerNumericUpDownBox}">
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Maximum" Value="9"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 </ResourceDictionary>

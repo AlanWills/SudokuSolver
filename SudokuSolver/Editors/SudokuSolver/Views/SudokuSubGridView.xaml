@@ -19,18 +19,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Row 1-->
-        <local:SudokuElement Grid.Row="0" Grid.Column="0"/>
-        <local:SudokuElement Grid.Row="0" Grid.Column="1"/>
-        <local:SudokuElement Grid.Row="0" Grid.Column="2"/>
+        <local:SudokuElement Grid.Row="0" Grid.Column="0" DataContext="{Binding TopLeft}"/>
+        <local:SudokuElement Grid.Row="0" Grid.Column="1" DataContext="{Binding TopMiddle}"/>
+        <local:SudokuElement Grid.Row="0" Grid.Column="2" DataContext="{Binding TopRight}"/>
 
         <!--Row 2-->
-        <local:SudokuElement Grid.Row="1" Grid.Column="0"/>
-        <local:SudokuElement Grid.Row="1" Grid.Column="1"/>
-        <local:SudokuElement Grid.Row="1" Grid.Column="2"/>
+        <local:SudokuElement Grid.Row="1" Grid.Column="0" DataContext="{Binding MiddleLeft}"/>
+        <local:SudokuElement Grid.Row="1" Grid.Column="1" DataContext="{Binding MiddleMiddle}"/>
+        <local:SudokuElement Grid.Row="1" Grid.Column="2" DataContext="{Binding MiddleRight}"/>
 
         <!--Row 3-->
-        <local:SudokuElement Grid.Row="2" Grid.Column="0"/>
-        <local:SudokuElement Grid.Row="2" Grid.Column="1"/>
-        <local:SudokuElement Grid.Row="2" Grid.Column="2"/>
+        <local:SudokuElement Grid.Row="2" Grid.Column="0" DataContext="{Binding BottomLeft}"/>
+        <local:SudokuElement Grid.Row="2" Grid.Column="1" DataContext="{Binding BottomMiddle}"/>
+        <local:SudokuElement Grid.Row="2" Grid.Column="2" DataContext="{Binding BottomRight}"/>
     </Grid>
 </UserControl>

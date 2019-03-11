@@ -7,5 +7,6 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">
-    <xctk:IntegerUpDown Grid.Row="0" Grid.Column="0" Style="{StaticResource SudokuElementStyle}" Value="{Binding SudokuElement.Value}"/>
+    <xctk:IntegerUpDown Grid.Row="0" Grid.Column="0" Style="{StaticResource SudokuElementStyle}" Value="{Binding SudokuElement.Value}"
+                        ShowButtonSpinner="False"/>
 </UserControl>
