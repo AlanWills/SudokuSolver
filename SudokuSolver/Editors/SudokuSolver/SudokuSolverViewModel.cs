@@ -1,4 +1,5 @@
 ﻿using CelesteEngineEditor.Editors;
+using SudokuSolver.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,22 @@ namespace SudokuSolver.Editors.SudokuSolver
 {
     public class SudokuSolverViewModel : EditorViewModel
     {
-        public SudokuSolverViewModel(object targetObject) : 
-            base(targetObject)
+        #region Properties and Fields
+
+        private Sudoku sudoku;
+        public Sudoku Sudoku
+        {
+            get
+            {
+                sudoku = sudoku ?? TargetObject as Sudoku;
+                return sudoku;
+            }
+        }
+
+        #endregion
+
+        public SudokuSolverViewModel(Sudoku sudoku) : 
+            base(sudoku)
         {
         }
     }

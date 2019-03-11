@@ -1,8 +1,4 @@
-﻿using CelesteEngineEditor.Attributes;
-using CelesteEngineEditor.Editors;
-using DevZest.Windows.Docking;
-using SudokuSolver.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +16,11 @@ using System.Windows.Shapes;
 namespace SudokuSolver.Editors.SudokuSolver
 {
     /// <summary>
-    /// Interaction logic for SudokuSolver.xaml
+    /// Interaction logic for SudokuSubGridView.xaml
     /// </summary>
-    [CustomEditor("Sudoku Solver", DockPosition.Document)]
-    [CustomMenuItem("Solvers/Sudoku Solver")]
-    public partial class SudokuSolverView : Editor
+    public partial class SudokuSubGridView : UserControl
     {
-        public SudokuSolverView(object targetValue) :
-            base(new SudokuSolverViewModel(new Sudoku()))
+        public SudokuSubGridView()
         {
             InitializeComponent();
         }

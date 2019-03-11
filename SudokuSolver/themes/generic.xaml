@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CelesteEngineEditorLibrary;component/ResourceDictionaries/EditorResources.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/SudokuSolver;component/ResourceDictionaries/Styles/SudokuGridStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
