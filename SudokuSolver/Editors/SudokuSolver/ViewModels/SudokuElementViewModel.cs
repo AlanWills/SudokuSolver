@@ -1,4 +1,5 @@
-﻿using SudokuSolver.Data;
+﻿using CelesteEngineEditor.ViewModels;
+using SudokuSolver.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,21 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 {
-    public class SudokuElementViewModel
+    public class SudokuElementViewModel : Notifier
     {
         #region Properties and Fields
 
-        public SudokuElement SudokuElement { get; }
+        private SudokuElement SudokuElement { get; }
+
+        public int Value
+        {
+            get { return SudokuElement.Value; }
+            set
+            {
+                SudokuElement.Value = value;
+                NotifyOnPropertyChanged(nameof(Value));
+            }
+        }
 
         #endregion
 
@@ -19,5 +30,19 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
         {
             SudokuElement = sudokuElement;
         }
+
+        #region Operators
+
+        public static bool operator==(SudokuElementViewModel sudokuElementViewModel, int target)
+        {
+            return sudokuElementViewModel.Value == target;
+        }
+
+        public static bool operator !=(SudokuElementViewModel sudokuElementViewModel, int target)
+        {
+            return sudokuElementViewModel.Value != target;
+        }
+
+        #endregion
     }
 }

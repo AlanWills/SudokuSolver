@@ -7,30 +7,47 @@
              xmlns:editors="clr-namespace:CelesteEngineEditor.Editors;assembly=CelesteEngineEditorLibrary"
              xmlns:sudoku_views="clr-namespace:SudokuSolver.Editors.SudokuSolver.Views"
              d:DesignHeight="600" d:DesignWidth="600">
-    <Grid>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Row 1-->
         <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="0" DataContext="{Binding TopLeft}"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="1" DataContext="{Binding TopMiddle}"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="2" DataContext="{Binding TopRight}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="2" DataContext="{Binding TopMiddle}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="0" Grid.Column="4" DataContext="{Binding TopRight}"/>
 
         <!--Row 2-->
-        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="0" DataContext="{Binding MiddleLeft}"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="1" DataContext="{Binding MiddleMiddle}"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="1" Grid.Column="2" DataContext="{Binding MiddleRight}"/>
-
+        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="0" DataContext="{Binding MiddleLeft}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="2" DataContext="{Binding MiddleMiddle}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="4" DataContext="{Binding MiddleRight}"/>
+        
         <!--Row 3-->
-        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="0" DataContext="{Binding BottomLeft}"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="1" DataContext="{Binding BottomMiddle}"/>
-        <sudoku_views:SudokuSubGridView Grid.Row="2" Grid.Column="2" DataContext="{Binding BottomRight}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="4" Grid.Column="0" DataContext="{Binding BottomLeft}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="4" Grid.Column="2" DataContext="{Binding BottomMiddle}"/>
+        <sudoku_views:SudokuSubGridView Grid.Row="4" Grid.Column="4" DataContext="{Binding BottomRight}"/>
+
+        <!--Grid Lines-->
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="5" Fill="Black" HorizontalAlignment="Stretch"/>
+        <Rectangle Grid.Row="3" Grid.ColumnSpan="5" Fill="Black" HorizontalAlignment="Stretch"/>
+        <Rectangle Grid.RowSpan="5" Grid.Column="1" Fill="Black" HorizontalAlignment="Stretch"/>
+        <Rectangle Grid.RowSpan="5" Grid.Column="3" Fill="Black" HorizontalAlignment="Stretch"/>
+        
+        <!--Utility Panel-->
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Solve" Style="{DynamicResource DefaultButtonStyle}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    Click="SolveButton_Click"/>
+        </StackPanel>
     </Grid>
 </editors:Editor>

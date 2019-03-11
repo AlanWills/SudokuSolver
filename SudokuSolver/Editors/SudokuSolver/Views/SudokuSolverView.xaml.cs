@@ -27,10 +27,21 @@ namespace SudokuSolver.Editors.SudokuSolver.Views
     [CustomMenuItem("Solvers/Sudoku Solver")]
     public partial class SudokuSolverView : Editor
     {
+        #region Properties and Fields
+
+        private SudokuSolverViewModel SudokuSolverViewModel { get { return ViewModel as SudokuSolverViewModel; } }
+
+        #endregion
+
         public SudokuSolverView(object target) :
             base(new SudokuSolverViewModel(new Sudoku()))
         {
             InitializeComponent();
+        }
+        
+        private void SolveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SudokuSolverViewModel.Solve();
         }
     }
 }
