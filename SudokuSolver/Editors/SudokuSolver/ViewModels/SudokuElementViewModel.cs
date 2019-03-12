@@ -20,7 +20,17 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             set
             {
                 SudokuElement.Value = value;
-                NotifyOnPropertyChanged(nameof(Value));
+                NotifyOnPropertyChanged(nameof(ValueString));
+            }
+        }
+
+        public string ValueString
+        {
+            get { return SudokuElement.Value == 0 ? "" : SudokuElement.Value.ToString(); }
+            set
+            {
+                SudokuElement.Value = string.IsNullOrEmpty(value) ? 0 : int.Parse(value);
+                NotifyOnPropertyChanged(nameof(ValueString));
             }
         }
 
