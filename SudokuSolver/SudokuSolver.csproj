@@ -88,9 +88,7 @@
       <Name>CelesteEngineEditorLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Editors\SudokuSolver\Views\SudokuElement.xaml">
       <SubType>Designer</SubType>
@@ -119,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Sudokus\TestSudoku.asset" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

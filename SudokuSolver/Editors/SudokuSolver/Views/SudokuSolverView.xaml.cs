@@ -23,8 +23,7 @@ namespace SudokuSolver.Editors.SudokuSolver.Views
     /// <summary>
     /// Interaction logic for SudokuSolver.xaml
     /// </summary>
-    [CustomEditor("Sudoku Solver", DockPosition.Document)]
-    [CustomMenuItem("Solvers/Sudoku Solver")]
+    [CustomEditor(typeof(Sudoku), "Sudoku Solver", DockPosition.Document)]
     public partial class SudokuSolverView : Editor
     {
         #region Properties and Fields
@@ -34,7 +33,7 @@ namespace SudokuSolver.Editors.SudokuSolver.Views
         #endregion
 
         public SudokuSolverView(object target) :
-            base(new SudokuSolverViewModel(new Sudoku()))
+            base(new SudokuSolverViewModel(target as Sudoku))
         {
             InitializeComponent();
         }
