@@ -1,4 +1,5 @@
-﻿using SudokuSolver.Data;
+﻿using CelesteEngineEditor.ViewModels;
+using SudokuSolver.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 {
-    public class SudokuSubGridViewModel : IEnumerable<SudokuElementViewModel>
+    public class SudokuSubGridViewModel : Notifier, IEnumerable<SudokuElementViewModel>
     {
         #region Properties and Fields
 
@@ -61,6 +62,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             elements.Add(BottomLeft);
             elements.Add(BottomMiddle);
             elements.Add(BottomRight);
+
+            foreach (SudokuElementViewModel sudokuElements in Elements)
+            {
+                sudokuElements.PropertyChanged += SudokuElements_PropertyChanged; ;
+            }
         }
 
         #region Solving Utility Functions
@@ -91,6 +97,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Elements.GetEnumerator();
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        /// <summary>
+        /// When any part of our sudoku changes we need to make sure the overall asset is dirtied.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SudokuElements_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            NotifyOnPropertyChanged(nameof(sender));
         }
 
         #endregion

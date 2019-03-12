@@ -1,8 +1,10 @@
-﻿using CelesteEngineEditor.Editors;
+﻿using CelesteEngineEditor.Core;
+using CelesteEngineEditor.Editors;
 using SudokuSolver.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +70,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             subGrids.Add(BottomLeft);
             subGrids.Add(BottomMiddle);
             subGrids.Add(BottomRight);
+
+            foreach (SudokuSubGridViewModel sudokuSubGrid in SubGrids)
+            {
+                sudokuSubGrid.PropertyChanged += SudokuSubGrid_PropertyChanged;
+            }
         }
 
         #region Solving Functions
@@ -119,6 +126,8 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
                     MiddleMiddle.Elements[index].Value = value;
                 }
             }
+
+            Project.SetDirty(Sudoku);
         }
 
         public bool IsValueInColumn(int value, int columnIndex)
@@ -139,6 +148,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             return SubGrids[subGridIndex].IsValueInRow(value, subRowIndex) ||
                    SubGrids[subGridIndex + 1].IsValueInRow(value, subRowIndex) ||
                    SubGrids[subGridIndex + 2].IsValueInRow(value, subRowIndex);
+        }
+
+        #endregion
+
+        #region Callbacks
+
+        /// <summary>
+        /// When any part of our sudoku changes we need to make sure the overall asset is dirtied.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SudokuSubGrid_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Project.SetDirty(TargetObject);
         }
 
         #endregion
