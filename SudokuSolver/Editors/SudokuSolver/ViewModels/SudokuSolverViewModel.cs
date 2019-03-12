@@ -14,7 +14,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
     public class SudokuSolverViewModel : EditorViewModel
     {
         #region Properties and Fields
-
+        
         private Sudoku sudoku;
         public Sudoku Sudoku
         {
@@ -81,6 +81,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         public void Solve()
         {
+            bool newValuesFound = false;
+            do
+            {
+                newValuesFound = false;
+                foreach (SudokuSubGridViewModel subGrid in SubGrids)
+                {
+                    newValuesFound |= SweepSubGrid(subGrid);
+                }
+            }
+            while (newValuesFound);
+        }
+
+        private bool SweepSubGrid(SudokuSubGridViewModel subGrid)
+        {
             List<HashSet<int>> suggestions = new List<HashSet<int>>(9);
             for (int i = 0; i < suggestions.Capacity; ++i)
             {
@@ -92,7 +106,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
                 1, 2, 3, 4, 5, 6, 7, 8, 9
             };
 
-            foreach (SudokuElementViewModel sudokuElementViewModel in MiddleMiddle)
+            foreach (SudokuElementViewModel sudokuElementViewModel in subGrid)
             {
                 if (sudokuElementViewModel.Value != 0)
                 {
@@ -101,7 +115,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             }
 
             int currentIndex = 0;
-            foreach (SudokuElementViewModel sudokuElementViewModel in MiddleMiddle)
+            foreach (SudokuElementViewModel sudokuElementViewModel in subGrid)
             {
                 if (sudokuElementViewModel.Value == 0)
                 {
@@ -118,16 +132,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
                 ++currentIndex;
             }
 
+            bool newValuesFound = false;
+
             foreach (int value in toFind)
             {
                 if (suggestions.Count(x => x.Contains(value)) == 1)
                 {
                     int index = suggestions.FindIndex(x => x.Contains(value));
-                    MiddleMiddle.Elements[index].Value = value;
+                    subGrid.Elements[index].Value = value;
+                    newValuesFound = true;
                 }
             }
 
             Project.SetDirty(Sudoku);
+            return newValuesFound;
         }
 
         public bool IsValueInColumn(int value, int columnIndex)
