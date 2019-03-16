@@ -15,50 +15,58 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
     {
         #region Properties and Fields
         
-        private Sudoku sudoku;
-        public Sudoku Sudoku
-        {
-            get
-            {
-                sudoku = sudoku ?? TargetObject as Sudoku;
-                return sudoku;
-            }
-        }
+        public Sudoku Sudoku { get; private set; }
 
         // Top
-        public SudokuSubGridViewModel TopLeft { get; }
-        public SudokuSubGridViewModel TopMiddle { get; }
-        public SudokuSubGridViewModel TopRight { get; }
+        public SudokuSubGridViewModel TopLeft { get; private set; }
+        public SudokuSubGridViewModel TopMiddle { get; private set; }
+        public SudokuSubGridViewModel TopRight { get; private set; }
 
         // Middle
-        public SudokuSubGridViewModel MiddleLeft { get; }
-        public SudokuSubGridViewModel MiddleMiddle { get; }
-        public SudokuSubGridViewModel MiddleRight { get; }
+        public SudokuSubGridViewModel MiddleLeft { get; private set; }
+        public SudokuSubGridViewModel MiddleMiddle { get; private set; }
+        public SudokuSubGridViewModel MiddleRight { get; private set; }
 
         // Bottom
-        public SudokuSubGridViewModel BottomLeft { get; }
-        public SudokuSubGridViewModel BottomMiddle { get; }
-        public SudokuSubGridViewModel BottomRight { get; }
+        public SudokuSubGridViewModel BottomLeft { get; private set; }
+        public SudokuSubGridViewModel BottomMiddle { get; private set; }
+        public SudokuSubGridViewModel BottomRight { get; private set; }
 
         private List<SudokuSubGridViewModel> subGrids = new List<SudokuSubGridViewModel>(9);
-        public ReadOnlyCollection<SudokuSubGridViewModel> SubGrids { get; }
+        public ReadOnlyCollection<SudokuSubGridViewModel> SubGrids { get; private set; }
 
         #endregion
 
         public SudokuSolverViewModel(Sudoku sudoku) : 
             base(sudoku)
         {
-            TopLeft = new SudokuSubGridViewModel(sudoku.TopLeft);
-            TopMiddle = new SudokuSubGridViewModel(sudoku.TopMiddle);
-            TopRight = new SudokuSubGridViewModel(sudoku.TopRight);
+        }
 
-            MiddleLeft = new SudokuSubGridViewModel(sudoku.MiddleLeft);
-            MiddleMiddle = new SudokuSubGridViewModel(sudoku.MiddleMiddle);
-            MiddleRight = new SudokuSubGridViewModel(sudoku.MiddleRight);
+        #region Editor GUI Functions
 
-            BottomLeft = new SudokuSubGridViewModel(sudoku.BottomLeft);
-            BottomMiddle = new SudokuSubGridViewModel(sudoku.BottomMiddle);
-            BottomRight = new SudokuSubGridViewModel(sudoku.BottomRight);
+        protected override void OnTargetObjectChanged()
+        {
+            base.OnTargetObjectChanged();
+
+            Sudoku = TargetObject as Sudoku;
+
+            TopLeft = new SudokuSubGridViewModel(Sudoku.TopLeft);
+            TopMiddle = new SudokuSubGridViewModel(Sudoku.TopMiddle);
+            TopRight = new SudokuSubGridViewModel(Sudoku.TopRight);
+
+            MiddleLeft = new SudokuSubGridViewModel(Sudoku.MiddleLeft);
+            MiddleMiddle = new SudokuSubGridViewModel(Sudoku.MiddleMiddle);
+            MiddleRight = new SudokuSubGridViewModel(Sudoku.MiddleRight);
+
+            BottomLeft = new SudokuSubGridViewModel(Sudoku.BottomLeft);
+            BottomMiddle = new SudokuSubGridViewModel(Sudoku.BottomMiddle);
+            BottomRight = new SudokuSubGridViewModel(Sudoku.BottomRight);
+
+            foreach (SudokuSubGridViewModel sudokuSubGrid in subGrids)
+            {
+                sudokuSubGrid.PropertyChanged -= SudokuSubGrid_PropertyChanged;
+            }
+            subGrids.Clear();
 
             SubGrids = new ReadOnlyCollection<SudokuSubGridViewModel>(subGrids);
             subGrids.Add(TopLeft);
@@ -75,7 +83,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             {
                 sudokuSubGrid.PropertyChanged += SudokuSubGrid_PropertyChanged;
             }
+
+            NotifyOnPropertyChanged(nameof(TopLeft));
         }
+
+        #endregion
 
         #region Solving Functions
 

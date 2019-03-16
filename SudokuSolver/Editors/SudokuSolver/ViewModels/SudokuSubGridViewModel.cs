@@ -126,7 +126,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
         #endregion
 
         #region Callbacks
-
+        
         /// <summary>
         /// When any part of our sudoku changes we need to make sure the overall asset is dirtied.
         /// </summary>
