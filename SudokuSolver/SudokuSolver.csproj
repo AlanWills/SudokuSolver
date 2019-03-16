@@ -117,7 +117,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\Sudokus\TestSudoku.asset" />
+    <None Include="Resources\Sudokus\EasySudoku.asset" />
+    <None Include="Resources\Sudokus\MediumSudoku.asset" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -85,7 +85,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             SweepRows();
             SweepColumns();
         }
-        
+
         private void SweepGrids()
         {
             bool newValuesFound = false;
@@ -144,6 +144,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             }
 
             bool newValuesFound = false;
+
+            for (int i = 0; i < suggestions.Count; ++i)
+            {
+                if (suggestions[i].Count == 1)
+                {
+                    int number = suggestions[i].First();
+
+                    subGrid.Elements[i].Value = number;
+                    newValuesFound = true;
+
+                    // Remove the number from all suggestions
+                    suggestions.ForEach(x => x.Remove(number));
+                }
+            }
 
             foreach (int value in toFind)
             {
@@ -208,6 +222,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
             bool newValuesFound = false;
 
+            for (int i = 0; i < suggestions.Count; ++i)
+            {
+                if (suggestions[i].Count == 1)
+                {
+                    int number = suggestions[i].First();
+
+                    rowElements[i].Value = number;
+                    newValuesFound = true;
+
+                    // Remove the number from all suggestions
+                    suggestions.ForEach(x => x.Remove(number));
+                }
+            }
+
             foreach (int value in toFind)
             {
                 if (suggestions.Count(x => x.Contains(value)) == 1)
@@ -270,6 +298,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             }
 
             bool newValuesFound = false;
+
+            for (int i = 0; i < suggestions.Count; ++i)
+            {
+                if (suggestions[i].Count == 1)
+                {
+                    int number = suggestions[i].First();
+
+                    columnElements[i].Value = number;
+                    newValuesFound = true;
+
+                    // Remove the number from all suggestions
+                    suggestions.ForEach(x => x.Remove(number));
+                }
+            }
 
             foreach (int value in toFind)
             {
