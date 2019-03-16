@@ -87,6 +87,30 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         #endregion
 
+        #region Element Utility Functions
+
+        public List<SudokuElementViewModel> GetElementsInRow(int rowIndex)
+        {
+            List<SudokuElementViewModel> rowElements = new List<SudokuElementViewModel>();
+            rowElements.Add(elements[rowIndex * 3]);
+            rowElements.Add(elements[rowIndex * 3 + 1]);
+            rowElements.Add(elements[rowIndex * 3 + 2]);
+
+            return rowElements;
+        }
+
+        public List<SudokuElementViewModel> GetElementsInColumn(int columnIndex)
+        {
+            List<SudokuElementViewModel> rowElements = new List<SudokuElementViewModel>();
+            rowElements.Add(elements[columnIndex]);
+            rowElements.Add(elements[columnIndex + 3]);
+            rowElements.Add(elements[columnIndex + 6]);
+
+            return rowElements;
+        }
+
+        #endregion
+
         #region IEnumerable Interface
 
         public IEnumerator<SudokuElementViewModel> GetEnumerator()
