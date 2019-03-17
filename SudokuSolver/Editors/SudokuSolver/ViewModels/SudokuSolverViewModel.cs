@@ -84,7 +84,20 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
                 sudokuSubGrid.PropertyChanged += SudokuSubGrid_PropertyChanged;
             }
 
+            NotifySudokuChanged();
+        }
+
+        private void NotifySudokuChanged()
+        {
             NotifyOnPropertyChanged(nameof(TopLeft));
+            NotifyOnPropertyChanged(nameof(TopMiddle));
+            NotifyOnPropertyChanged(nameof(TopRight));
+            NotifyOnPropertyChanged(nameof(MiddleLeft));
+            NotifyOnPropertyChanged(nameof(MiddleMiddle));
+            NotifyOnPropertyChanged(nameof(MiddleRight));
+            NotifyOnPropertyChanged(nameof(BottomLeft));
+            NotifyOnPropertyChanged(nameof(BottomMiddle));
+            NotifyOnPropertyChanged(nameof(BottomRight));
         }
 
         #endregion
