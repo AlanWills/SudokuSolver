@@ -120,6 +120,8 @@
     <None Include="Resources\Sudokus\EasySudoku.asset" />
     <None Include="Resources\Sudokus\HardSudoku.asset" />
     <None Include="Resources\Sudokus\MediumSudoku.asset" />
+    <None Include="Resources\Sudokus\Observer\21-04-2019\21-04-2019 %28Solved%29.asset" />
+    <None Include="Resources\Sudokus\Observer\21-04-2019\21-04-2019.asset" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

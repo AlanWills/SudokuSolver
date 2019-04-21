@@ -42,5 +42,10 @@ namespace SudokuSolver.Editors.SudokuSolver.Views
         {
             SudokuSolverViewModel.Solve();
         }
+
+        private void SolveSingleButton_Click(object sender, RoutedEventArgs e)
+        {
+            SudokuSolverViewModel.SolveSingle();
+        }
     }
 }

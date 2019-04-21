@@ -3,6 +3,7 @@ using SudokuSolver.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +90,19 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             OnValueRemoved();
         }
 
+        public void SetPossibleValuesTo(IEnumerable<int> possibleValuesToRemain)
+        {
+            SudokuElement.PossibleValues.Clear();
+            
+            foreach (int value in possibleValuesToRemain)
+            {
+                SudokuElement.PossibleValues.Add(value);
+            }
+
+            // We've changed our backing data, so update the readonly public interface
+            OnValueRemoved();
+        }
+
         public void RemoveFromPossibleValues(int valueToRemove)
         {
             if (SudokuElement.PossibleValues.Contains(valueToRemove))
@@ -114,6 +128,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         private void OnValueRemoved()
         {
+            // Debug checks to ensure that either the value is set and we have no possible values
+            // Or that the value is not set and there are still possible values
+            Debug.Assert(SudokuElement.Value > 0 || SudokuElement.PossibleValues.Count > 0);
+            Debug.Assert(SudokuElement.Value == 0 || SudokuElement.PossibleValues.Count == 0);
+
             PossibleValues = new ReadOnlyCollection<int>(SudokuElement.PossibleValues.ToList());
             NotifyOnPropertyChanged(nameof(PossibleValuesString));
         }
