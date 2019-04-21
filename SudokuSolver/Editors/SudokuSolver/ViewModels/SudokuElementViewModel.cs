@@ -21,6 +21,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             set
             {
                 SudokuElement.Value = value;
+                if (Value > 0)
+                {
+                    ClearPossibleValues();
+                }
+
                 NotifyOnPropertyChanged(nameof(ValueString));
             }
         }
@@ -35,10 +40,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             }
         }
 
-        public ReadOnlyCollection<int> PossibleValues
-        {
-            get { return new ReadOnlyCollection<int>(SudokuElement.PossibleValues.ToList()); }
-        }
+        public ReadOnlyCollection<int> PossibleValues { get; private set; }
 
         public string PossibleValuesString
         {
@@ -60,6 +62,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
         public SudokuElementViewModel(SudokuElement sudokuElement)
         {
             SudokuElement = sudokuElement;
+            PossibleValues = new ReadOnlyCollection<int>(sudokuElement.PossibleValues.ToList());
         }
 
         #region Operators
@@ -78,9 +81,40 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         #region Possible Value Utility Functions
 
+        public void ClearPossibleValues()
+        {
+            SudokuElement.PossibleValues.Clear();
+
+            // We've changed our backing data, so update the readonly public interface
+            OnValueRemoved();
+        }
+
+        public void RemoveFromPossibleValues(int valueToRemove)
+        {
+            if (SudokuElement.PossibleValues.Contains(valueToRemove))
+            {
+                SudokuElement.PossibleValues.Remove(valueToRemove);
+
+                // We've changed our backing data, so update the readonly public interface
+                OnValueRemoved();
+            }
+        }
+
         public void RemoveFromPossibleValues(IEnumerable<int> valuesToRemove)
         {
+            int oldSize = SudokuElement.PossibleValues.Count;
             SudokuElement.PossibleValues.ExceptWith(valuesToRemove);
+
+            if (oldSize != SudokuElement.PossibleValues.Count)
+            {
+                // We've changed our backing data, so update the readonly public interface
+                OnValueRemoved();
+            }
+        }
+
+        private void OnValueRemoved()
+        {
+            PossibleValues = new ReadOnlyCollection<int>(SudokuElement.PossibleValues.ToList());
             NotifyOnPropertyChanged(nameof(PossibleValuesString));
         }
 

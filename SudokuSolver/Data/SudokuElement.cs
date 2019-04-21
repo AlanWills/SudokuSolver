@@ -10,10 +10,24 @@ namespace SudokuSolver.Data
     {
         #region Properties and Fields
 
+        private int value = 0;
         /// <summary>
         /// The current value in this element.  0 corresponds to an unknown value.
         /// </summary>
-        public int Value { get; set; } = 0;
+        public int Value
+        {
+            get { return value; }
+            set
+            {
+                this.value = value;
+
+                if (Value > 0)
+                {
+                    // This value is set in stone and so cannot have any other possible values
+                    PossibleValues.Clear();
+                }
+            }
+        }
 
         /// <summary>
         /// The possible values this single element could have to maintain the constrictions of the sudoku.
