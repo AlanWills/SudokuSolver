@@ -8,5 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">
     <xctk:IntegerUpDown Grid.Row="0" Grid.Column="0" Style="{StaticResource SudokuElementStyle}"
-                        ShowButtonSpinner="False" Text="{Binding ValueString}"/>
+                        ShowButtonSpinner="False" Text="{Binding ValueString}"
+                        ToolTip="{Binding PossibleValuesString}"/>
 </UserControl>

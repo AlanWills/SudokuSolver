@@ -84,6 +84,7 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
                 sudokuSubGrid.PropertyChanged += SudokuSubGrid_PropertyChanged;
             }
 
+            UpdatePossibleValues();
             NotifySudokuChanged();
         }
 
@@ -109,7 +110,69 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             SweepGrids();
             SweepRows();
             SweepColumns();
+            SweepGridPairs();
+            UpdatePossibleValues();
         }
+
+        #region Initial Removal of Possible Values
+
+        private void UpdatePossibleValues()
+        {
+            UpdatePossibleValuesUsingGrids();
+            UpdatePossibleValuesUsingRows();
+            UpdatePossibleValuesUsingColumns();
+        }
+
+        private void UpdatePossibleValuesUsingGrids()
+        {
+            foreach (SudokuSubGridViewModel subGridViewModel in SubGrids)
+            {
+                // Find all the current set values
+                IEnumerable<int> currentSetValues = subGridViewModel.Where(x => x.Value > 0).Select(x => x.Value);
+
+                if (currentSetValues.Any())
+                {
+                    // Update all the individual elements with the current set values
+                    foreach (SudokuElementViewModel sudokuElement in subGridViewModel)
+                    {
+                        sudokuElement.RemoveFromPossibleValues(currentSetValues);
+                    }
+                }
+            }
+        }
+
+        private void UpdatePossibleValuesUsingRows()
+        {
+            for (int rowIndex = 0; rowIndex < 9; ++rowIndex)
+            {
+                UpdatePossibleValuesUsingElements(GetElementsInRow(rowIndex));
+            }
+        }
+
+        private void UpdatePossibleValuesUsingColumns()
+        {
+            for (int columnIndex = 0; columnIndex < 9; ++columnIndex)
+            {
+                UpdatePossibleValuesUsingElements(GetElementsInColumn(columnIndex));
+            }
+        }
+
+        private void UpdatePossibleValuesUsingElements(List<SudokuElementViewModel> elements)
+        {
+            // Find all the values already set within the collection of elements
+            IEnumerable<int> currentSetValues = elements.Where(x => x.Value > 0).Select(x => x.Value);
+
+            if (currentSetValues.Any())
+            {
+                // Update all the individual elements with the current set values
+                foreach (SudokuElementViewModel sudokuElement in elements)
+                {
+                    sudokuElement.RemoveFromPossibleValues(currentSetValues);
+                }
+            }
+        }
+
+        #endregion
 
         private void SweepGrids()
         {
@@ -350,6 +413,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
             Project.SetDirty(Sudoku);
             return newValuesFound;
+        }
+
+        private void SweepGridPairs()
+        {
+
         }
 
         public bool IsValueInSubGrid(int value, int subGridIndex)

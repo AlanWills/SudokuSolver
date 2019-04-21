@@ -34,6 +34,21 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             }
         }
 
+        public string PossibleValuesString
+        {
+            get
+            {
+                StringBuilder builder = new StringBuilder(32);
+                foreach (int value in SudokuElement.PossibleValues)
+                {
+                    builder.Append(value)
+                           .Append(',');
+                }
+
+                return builder.ToString();
+            }
+        }
+
         #endregion
 
         public SudokuElementViewModel(SudokuElement sudokuElement)
@@ -51,6 +66,16 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
         public static bool operator !=(SudokuElementViewModel sudokuElementViewModel, int target)
         {
             return sudokuElementViewModel.Value != target;
+        }
+
+        #endregion
+
+        #region Possible Value Utility Functions
+
+        public void RemoveFromPossibleValues(IEnumerable<int> valuesToRemove)
+        {
+            SudokuElement.PossibleValues.ExceptWith(valuesToRemove);
+            NotifyOnPropertyChanged(nameof(PossibleValuesString));
         }
 
         #endregion
