@@ -2,6 +2,7 @@
 using SudokuSolver.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
                 SudokuElement.Value = string.IsNullOrEmpty(value) ? 0 : int.Parse(value);
                 NotifyOnPropertyChanged(nameof(ValueString));
             }
+        }
+
+        public ReadOnlyCollection<int> PossibleValues
+        {
+            get { return new ReadOnlyCollection<int>(SudokuElement.PossibleValues.ToList()); }
         }
 
         public string PossibleValuesString

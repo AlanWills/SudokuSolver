@@ -111,10 +111,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             do
             {
                 newValuesFound = false;
+
+                // TODO - Change these three functions to analyse the possible values
                 newValuesFound |= SweepSubGrids();
                 newValuesFound |= SweepRows();
                 newValuesFound |= SweepColumns();
-                newValuesFound |= SweepSubGridsForPairs();
 
                 UpdatePossibleValues();
             }
@@ -125,6 +126,11 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         private void UpdatePossibleValues()
         {
+            // A way for us to remove possible values, by using the fact that two elements with the same 
+            // two possible values means that those values cannot be present elsewhere in other grid elements
+            SweepSubGridsForPairs();
+
+            // Simple value updating using grid elements, row elements and column elements
             UpdatePossibleValuesUsingGrids();
             UpdatePossibleValuesUsingRows();
             UpdatePossibleValuesUsingColumns();
@@ -416,21 +422,48 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             return newValuesFound;
         }
 
-        private bool SweepSubGridsForPairs()
+        private void SweepSubGridsForPairs()
         {
-            bool newValuesFound = false;
-
             for (int i = 0; i < 9; ++i)
             {
-                newValuesFound |= SweepColumn(i);
+                SweepSubGridForPairs(i);
             }
-
-            return newValuesFound;
         }
 
         private bool SweepSubGridForPairs(int subGridIndex)
         {
-            return false;
+            bool newValuesFound = false;
+            SudokuSubGridViewModel subGrid = SubGrids[subGridIndex];
+
+            foreach (SudokuElementViewModel element in subGrid)
+            {
+                ReadOnlyCollection<int> possibleValues = element.PossibleValues;
+                if (possibleValues.Count == 2)
+                {
+                    // Attempt to find another element where
+                    // it also has two values
+                    // and does not contain any values not in our original possible values
+                    SudokuElementViewModel pairElement = subGrid.FirstOrDefault(x => 
+                        x != element && 
+                        x.PossibleValues.Count == 2 &&
+                        !x.PossibleValues.Any(y => !possibleValues.Contains(y)));
+
+                    if (pairElement != null)
+                    {
+                        // We have a pair, so remove the pair's possible values from all other elements in the grid
+                        foreach (SudokuElementViewModel otherElement in subGrid)
+                        {
+                            if (otherElement != element &&
+                                otherElement != pairElement)
+                            {
+                                otherElement.RemoveFromPossibleValues(possibleValues);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return newValuesFound;
         }
 
         public bool IsValueInSubGrid(int value, int subGridIndex)
