@@ -201,70 +201,22 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         private bool SweepSubGrid(int subGridIndex)
         {
-            List<HashSet<int>> suggestions = new List<HashSet<int>>(9);
-            for (int i = 0; i < suggestions.Capacity; ++i)
-            {
-                suggestions.Add(new HashSet<int>());
-            }
-
-            HashSet<int> toFind = new HashSet<int>()
-            {
-                1, 2, 3, 4, 5, 6, 7, 8, 9
-            };
-
+            bool newValuesFound = false;
             SudokuSubGridViewModel subGrid = SubGrids[subGridIndex];
 
-            foreach (SudokuElementViewModel sudokuElementViewModel in subGrid)
+            foreach (SudokuElementViewModel element in subGrid)
             {
-                if (sudokuElementViewModel.Value != 0)
+                if (element.PossibleValues.Count == 1)
                 {
-                    toFind.Remove(sudokuElementViewModel.Value);
-                }
-            }
+                    int number = element.PossibleValues.First();
+                    element.Value = number;
+                    newValuesFound = true;
 
-            for (int elementIndex = 0; elementIndex < subGrid.Elements.Count; ++elementIndex)
-            {
-                SudokuElementViewModel element = subGrid.Elements[elementIndex];
-
-                if (element.Value == 0)
-                {
-                    int elementColumn = 3 * (subGridIndex % 3) + elementIndex % 3;
-                    int elementRow = 3 * (subGridIndex / 3) + elementIndex / 3;
-
-                    foreach (int value in toFind)
+                    // Remove the number from all possible values of the elements in this grid
+                    foreach (SudokuElementViewModel otherElement in subGrid)
                     {
-                        if (!IsValueInColumn(value, elementColumn) &&
-                            !IsValueInRow(value, elementRow))
-                        {
-                            suggestions[elementIndex].Add(value);
-                        }
+                        otherElement.RemoveFromPossibleValues(number);
                     }
-                }
-            }
-
-            bool newValuesFound = false;
-
-            for (int i = 0; i < suggestions.Count; ++i)
-            {
-                if (suggestions[i].Count == 1)
-                {
-                    int number = suggestions[i].First();
-
-                    subGrid.Elements[i].Value = number;
-                    newValuesFound = true;
-
-                    // Remove the number from all suggestions
-                    suggestions.ForEach(x => x.Remove(number));
-                }
-            }
-
-            foreach (int value in toFind)
-            {
-                if (suggestions.Count(x => x.Contains(value)) == 1)
-                {
-                    int index = suggestions.FindIndex(x => x.Contains(value));
-                    subGrid.Elements[index].Value = value;
-                    newValuesFound = true;
                 }
             }
 
