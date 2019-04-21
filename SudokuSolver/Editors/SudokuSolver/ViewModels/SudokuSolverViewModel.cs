@@ -107,11 +107,18 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         public void Solve()
         {
-            SweepGrids();
-            SweepRows();
-            SweepColumns();
-            SweepGridPairs();
-            UpdatePossibleValues();
+            bool newValuesFound = false;
+            do
+            {
+                newValuesFound = false;
+                newValuesFound |= SweepSubGrids();
+                newValuesFound |= SweepRows();
+                newValuesFound |= SweepColumns();
+                newValuesFound |= SweepSubGridsForPairs();
+
+                UpdatePossibleValues();
+            }
+            while (newValuesFound);
         }
 
         #region Initial Removal of Possible Values
@@ -174,18 +181,16 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
 
         #endregion
 
-        private void SweepGrids()
+        private bool SweepSubGrids()
         {
             bool newValuesFound = false;
-            do
+
+            for (int subGridIndex = 0; subGridIndex < SubGrids.Count; ++subGridIndex)
             {
-                newValuesFound = false;
-                for (int subGridIndex = 0; subGridIndex < SubGrids.Count; ++subGridIndex)
-                {
-                    newValuesFound |= SweepSubGrid(subGridIndex);
-                }
+                newValuesFound |= SweepSubGrid(subGridIndex);
             }
-            while (newValuesFound);
+
+            return newValuesFound;
         }
 
         private bool SweepSubGrid(int subGridIndex)
@@ -261,18 +266,16 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             return newValuesFound;
         }
 
-        private void SweepRows()
+        private bool SweepRows()
         {
             bool newValuesFound = false;
-            do
+
+            for (int i = 0; i < 9; ++i)
             {
-                newValuesFound = false;
-                for (int i = 0; i < 9; ++i)
-                {
-                    newValuesFound |= SweepRow(i);
-                }
+                newValuesFound |= SweepRow(i);
             }
-            while (newValuesFound);
+
+            return newValuesFound;
         }
 
         private bool SweepRow(int rowIndex)
@@ -338,18 +341,16 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             return newValuesFound;
         }
 
-        private void SweepColumns()
+        private bool SweepColumns()
         {
             bool newValuesFound = false;
-            do
+
+            for (int i = 0; i < 9; ++i)
             {
-                newValuesFound = false;
-                for (int i = 0; i < 9; ++i)
-                {
-                    newValuesFound |= SweepColumn(i);
-                }
+                newValuesFound |= SweepColumn(i);
             }
-            while (newValuesFound);
+
+            return newValuesFound;
         }
 
         private bool SweepColumn(int columnIndex)
@@ -415,9 +416,21 @@ namespace SudokuSolver.Editors.SudokuSolver.ViewModels
             return newValuesFound;
         }
 
-        private void SweepGridPairs()
+        private bool SweepSubGridsForPairs()
         {
+            bool newValuesFound = false;
 
+            for (int i = 0; i < 9; ++i)
+            {
+                newValuesFound |= SweepColumn(i);
+            }
+
+            return newValuesFound;
+        }
+
+        private bool SweepSubGridForPairs(int subGridIndex)
+        {
+            return false;
         }
 
         public bool IsValueInSubGrid(int value, int subGridIndex)
