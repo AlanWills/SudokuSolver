@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Sudoku>
+    <TopLeft TopLeft="4" TopMiddle="9" TopRight="7" MiddleLeft="2" MiddleMiddle="8" MiddleRight="3" BottomLeft="6" BottomMiddle="5" BottomRight="1" />
+    <TopMiddle TopLeft="6" TopMiddle="5" TopRight="3" MiddleLeft="4" MiddleMiddle="9" MiddleRight="1" BottomLeft="7" BottomMiddle="8" BottomRight="2" />
+    <TopRight TopLeft="8" TopMiddle="2" TopRight="1" MiddleLeft="6" MiddleMiddle="5" MiddleRight="7" BottomLeft="4" BottomMiddle="9" BottomRight="3" />
+    <MiddleLeft TopLeft="1" TopMiddle="3" TopRight="8" MiddleLeft="5" MiddleMiddle="2" MiddleRight="4" BottomLeft="9" BottomMiddle="7" BottomRight="6" />
+    <MiddleMiddle TopLeft="9" TopMiddle="6" TopRight="5" MiddleLeft="1" MiddleMiddle="7" MiddleRight="8" BottomLeft="3" BottomMiddle="2" BottomRight="4" />
+    <MiddleRight TopLeft="2" TopMiddle="7" TopRight="4" MiddleLeft="9" MiddleMiddle="3" MiddleRight="6" BottomLeft="1" BottomMiddle="8" BottomRight="5" />
+    <BottomLeft TopLeft="8" TopMiddle="4" TopRight="9" MiddleLeft="3" MiddleMiddle="6" MiddleRight="5" BottomLeft="7" BottomMiddle="1" BottomRight="2" />
+    <BottomMiddle TopLeft="5" TopMiddle="1" TopRight="7" MiddleLeft="2" MiddleMiddle="4" MiddleRight="9" BottomLeft="8" BottomMiddle="3" BottomRight="6" />
+    <BottomRight TopLeft="3" TopMiddle="6" TopRight="2" MiddleLeft="7" MiddleMiddle="1" MiddleRight="8" BottomLeft="5" BottomMiddle="4" BottomRight="9" />
+  </Sudoku>
+</Root>
